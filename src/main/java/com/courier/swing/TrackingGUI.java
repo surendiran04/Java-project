@@ -4,15 +4,13 @@ import com.courier.dao.CourierDAO;
 import com.courier.model.Parcel;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 
 public class TrackingGUI {
-    private JFrame frame;
-    private JTextField trackingField;
-    private JTextArea resultArea;
+    private final JTextField trackingField;
+    private final JTextArea resultArea;
     
     public TrackingGUI() {
-        frame = new JFrame("Courier Tracking System");
+        JFrame frame = new JFrame("Courier Tracking System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 300);
         

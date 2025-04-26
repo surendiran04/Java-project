@@ -25,7 +25,6 @@ public class CourierDAO {
         return doc != null ? documentToParcel(doc) : null;
     }
 
-
     public Parcel getParcelByTrackingNumber(String trackingNumber) {
         Document doc = parcelsCollection.find(eq("trackingNumber", trackingNumber)).first();
         return doc != null ? documentToParcel(doc) : null;
@@ -34,7 +33,6 @@ public class CourierDAO {
     public List<Parcel> getAllParcels() {
         List<Parcel> parcels = new ArrayList<>();
         for (Document doc : parcelsCollection.find()) {
-            System.out.println(doc.toJson());  // Print the document to the console
             parcels.add(documentToParcel(doc));
         }
         return parcels;
@@ -47,10 +45,16 @@ public class CourierDAO {
         );
     }
 
-
+    // New addParcel method
+    public void addParcel(Parcel parcel) {
+        Document doc = new Document("trackingNumber", parcel.getTrackingNumber())
+                .append("status", parcel.getStatus())
+                .append("destination", parcel.getDestination())
+                .append("estimatedDelivery", parcel.getEstimatedDelivery());
+        parcelsCollection.insertOne(doc);  // Insert the new parcel document into the collection
+    }
 
     private Parcel documentToParcel(Document doc) {
-        System.out.println("Converting document to Parcel: " + doc.toJson());  // Log document before conversion
         return new Parcel(
                 doc.getObjectId("_id").toString(),
                 doc.getString("trackingNumber"),
@@ -59,5 +63,4 @@ public class CourierDAO {
                 doc.getString("estimatedDelivery")
         );
     }
-
 }

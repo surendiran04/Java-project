@@ -1,14 +1,21 @@
 package com.courier.model;
 
-import java.util.Date;
-
 public class Parcel {
-    private String id;  // Changed from int to String for MongoDB ObjectId
+    private String id;  // MongoDB ObjectId (can be auto-generated)
     private String trackingNumber;
     private String status;
     private String destination;
     private String estimatedDelivery;
-    
+
+    // Constructor without id (since MongoDB auto-generates it)
+    public Parcel(String trackingNumber, String status, String destination, String estimatedDelivery) {
+        this.trackingNumber = trackingNumber;
+        this.status = status;
+        this.destination = destination;
+        this.estimatedDelivery = estimatedDelivery;
+    }
+
+    // Constructor with id (if needed)
     public Parcel(String id, String trackingNumber, String status,
                   String destination, String estimatedDelivery) {
         this.id = id;
@@ -17,7 +24,7 @@ public class Parcel {
         this.destination = destination;
         this.estimatedDelivery = estimatedDelivery;
     }
-    
+
     // Getters and setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -28,5 +35,5 @@ public class Parcel {
     public String getDestination() { return destination; }
     public void setDestination(String destination) { this.destination = destination; }
     public String getEstimatedDelivery() { return estimatedDelivery; }
-    public void setEstimatedDelivery(Date estimatedDelivery) { this.estimatedDelivery = String.valueOf(estimatedDelivery); }
+    public void setEstimatedDelivery(String estimatedDelivery) { this.estimatedDelivery = estimatedDelivery; }
 }
